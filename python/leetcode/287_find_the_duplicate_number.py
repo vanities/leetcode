@@ -41,22 +41,20 @@ Follow up:
 
 
 """
+# Floyd's cycle.. again
 
 
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        t = nums[0]
-        h = nums[0]
+        tortoise, hare = nums[0], nums[nums[0]]
 
-        while True:
-            t = nums[t]
-            h = nums[nums[h]]
-            if t == h:
-                break
+        while tortoise != hare:
+            tortoise = nums[tortoise]
+            hare = nums[nums[hare]]
 
-        ptr1 = nums[0]
-        ptr2 = t
-        while ptr1 != ptr2:
-            ptr1 = nums[ptr1]
-            ptr2 = nums[ptr2]
-        return ptr1
+        # reset tortoise to start
+        tortoise = 0
+        while tortoise != hare:
+            tortoise = nums[tortoise]
+            hare = nums[hare]
+        return tortoise
